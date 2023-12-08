@@ -1,0 +1,22 @@
+# Prep for local test:
+
+# Create "fake repo" bash script - redhat repo (note: this step maps remote repo and will take some time)
+[~/composer]$ python app.py fakeremote -i https://repo.eurolinux.local/repo/redhat/8 -b create_redhat8.sh
+
+# Create "fake repo" eurolinux script - eurolinux repo  (note: this step maps remote repo and will take some time)
+[~/composer]$ python app.py fakeremote -i https://repo.eurolinux.local/repo/eurolinux/8/prod/ -b create_eurolinux8.sh
+
+[~/composer]$ mkdir -p repo/redhat8
+[~/composer]$ mkdir -p repo/eurolinux8
+[~/composer]$ cd repo/redhat8/
+[~/composer/repo/redhat8]$ bash ../../create_redhat8.sh # important - fakerepo scripts create trees in-place - be sure to position yourself in the right directory(!)
+[~/composer/repo/redhat8]$ cd ../eurolinux8/
+[~/composer/repo/eurolinux8]$ bash ../../create_eurolinux8.sh 
+[~/composer/repo/eurolinux8]$ cd ../..
+[~/composer]$ rm -rf minefield/ && cp -r repo/ minefield/ && find repo/ -iname "*debug*" | awk '/-debug(info|source)-/{ t=$1; sub(/repo/, "minefield", t); sub(/debug\//, "all/", t); print t}' | xargs -i touch {} && rm -rf minefield/eurolinux8/*/*/{os,debug}
+
+# Actual run - 'direct' execution:
+[~/composer]$ time python app.py direct -s minefield/redhat8/ -d minefield/eurolinux8/ -r True -T 4 -p BaseOS,AppStream,PowerTools,HighAvailability,ResilientStorage,CodeReady -R CodeReady/PowerTools
+
+# Viewing results:
+[~/composer]$ vimdiff <(find minefield/eurolinux8/ -iname *.rpm|sed "s/^minefield//g"|sort) <(find repo/eurolinux8/ -iname *.rpm|sed "s/^repo//g"|sort)
