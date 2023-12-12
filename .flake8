@@ -4,3 +4,6 @@ exclude =
     .git,
     __pycache__,
     *env*
+extend-ignore =
+    # bash script escape sequence '\$'
+    W605
