@@ -6,7 +6,7 @@ import argparse
 import composer.util as util
 import composer.maptarget as maptarget
 
-from composer.types import CommandsDataType
+from composer.composer_types import CommandsDataType
 
 
 def create_move_commands_for_debug_packages(repo: dict[str, dict[str, str]], all_dir: str,
