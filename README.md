@@ -11,6 +11,11 @@ At the most general level, composer looks through packages in the model (source)
 When it does, it creates a hardlink inside targeted repository (from `/all/` into `/os/` dir).
 The process of this composition is best shown on a small-scale example.
 
+## Development
+
+**We are using Python version 3.6 as this is default for the EuroLinux 8. You
+can also use Python3.9 (default for EuroLinux 9).**
+
 ## Example
 
 Given this (modeled/target) repository:
