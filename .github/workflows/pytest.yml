@@ -15,8 +15,6 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Install python3-rpm
-        run: sudo apt-get install -y python3-rpm
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip

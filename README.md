@@ -13,8 +13,8 @@ The process of this composition is best shown on a small-scale example.
 
 ## Development
 
-**We are using Python version 3.6 as this is default for the EuroLinux 8. You
-can also use Python3.9 (default for EuroLinux 9).**
+**Develop for python version 3.9 as this is default for the EuroLinux 9 and it
+is available as the module for EuroLinux 8.**
 
 ## Example
 
