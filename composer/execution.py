@@ -4,7 +4,7 @@ import logging
 import threading
 import typing as t
 
-from composer.types import CommandsDataType
+from composer.composer_types import CommandsDataType
 
 
 def create_local_repo_script(repo: dict[str, dict[str, str]], output_file: str) -> None:
