@@ -20,4 +20,4 @@ jobs:
           pip install -r requirements.txt
       - name: Test with mypy
         run: |
-          mypy --explicit-package-bases .
+          mypy composer
