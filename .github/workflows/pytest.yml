@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        python-version: ["3.9", "3.11"]
+        python-version: ["3.6"]
 
     steps:
       - uses: actions/checkout@v3
@@ -22,24 +22,6 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip uninstall -y rpm
-          python -c "$(curl -fsSL https://raw.githubusercontent.com/rpm-py-installer/rpm-py-installer/master/install.py)"
-      - name: Create SSH key
-        env:
-          SSH_PRIVATE_KEY: ${{secrets.GAIA_CONFIG}}
-          KNOWN_HOSTS: ${{secrets.KNOWN_HOSTS}}
-        run: |
-          mkdir -p ~/.ssh/
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
-          sudo chmod 600 ~/.ssh/id_ed25519
-          echo "$KNOWN_HOSTS" > ~/.ssh/known_hosts
-        shell: bash
-      - name: Copy .env files
-        run: |
-          cp builder/.env.template builder/.env
-          cp importer/.env.template importer/.env
-          cp puborch/.env.template puborch/.env
-          cp repoapi/.env.template repoapi/.env
       - name: Test with pytest
         run: |
           pytest --ignore=buildwebapp
