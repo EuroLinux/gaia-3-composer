@@ -52,7 +52,9 @@ def create_ruleset(args: argparse.Namespace) -> CommandsDataType:
     mapped_src = maptarget.map_target(args.src_repo, args)
     mapped_dst = maptarget.map_target(args.dst_repo, args)
     if not mapped_src or not mapped_dst:
+        # type: ignore
         mapped_dst or logging.warning('Destination map is empty!')
+        # type: ignore
         mapped_src or logging.warning('Source map is empty!')
         logging.warning('One or both maps are empty. Return empty.')
         return cmds
